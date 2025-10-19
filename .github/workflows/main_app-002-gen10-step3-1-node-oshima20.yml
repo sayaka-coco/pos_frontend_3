@@ -25,13 +25,15 @@ jobs:
 
       - name: npm install, build, and test
         run: |
-          npm install
+          npm ci --production
           npm run build --if-present
           npm run test --if-present
 
       - name: Zip artifact for deployment
         run: |
-          zip -r release.zip .next public package.json package-lock.json next.config.js .env
+          cd $GITHUB_WORKSPACE
+          zip release.zip .next/standalone/server.js || true
+          zip -r release.zip .next/static .next/standalone node_modules public package.json .env 2>/dev/null || zip -r release.zip .next public node_modules package.json .env
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
