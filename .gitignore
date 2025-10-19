@@ -1,4 +1,12 @@
 # Node
 node_modules/
 .next/
+out/
+
+# 環境変数（機密情報）
 .env.local
+.env*.local
+
+# その他
+.DS_Store
+*.log
