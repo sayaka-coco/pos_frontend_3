@@ -1,4 +1,6 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# POS Application Frontend
+
+This is a [Next.js](https://nextjs.org/) project for a Point of Sale (POS) application.
 
 ## Getting Started
 
