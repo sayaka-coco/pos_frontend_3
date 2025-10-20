@@ -29,9 +29,15 @@ jobs:
           npm run build --if-present
           npm run test --if-present
 
+      - name: Prepare standalone deployment
+        run: |
+          cp -r .next/standalone ./deploy
+          cp -r .next/static ./deploy/.next/static
+          cp -r public ./deploy/public
+
       - name: Zip artifact for deployment
         run: |
-          zip -r release.zip .next/standalone .next/static public package.json next.config.js
+          cd deploy && zip -r ../release.zip .
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
