@@ -7,9 +7,11 @@ export default function POSApp() {
   const [cart, setCart] = useState([])
   const [sampleItems, setSampleItems] = useState([])
 
+  const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT || 'http://localhost:8000'
+
   // サンプル商品コードを取得
   useEffect(() => {
-    fetch('http://localhost:8000/items')
+    fetch(`${API_ENDPOINT}/items`)
       .then(res => res.json())
       .then(data => {
         setSampleItems(data)  // 全商品を表示
@@ -25,7 +27,7 @@ export default function POSApp() {
     }
 
     try {
-      const response = await fetch(`http://localhost:8000/items/${itemCode}`)
+      const response = await fetch(`${API_ENDPOINT}/items/${itemCode}`)
       if (!response.ok) {
         alert('商品が見つかりません')
         return
@@ -86,7 +88,7 @@ export default function POSApp() {
         }))
       }
 
-      const response = await fetch('http://localhost:8000/purchases', {
+      const response = await fetch(`${API_ENDPOINT}/purchases`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(purchaseData)
