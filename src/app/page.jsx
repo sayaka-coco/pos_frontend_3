@@ -20,14 +20,15 @@ export default function POSApp() {
   }, [])
 
   // 商品検索
-  const searchItem = async () => {
-    if (!itemCode.trim()) {
+  const searchItem = async (code = null) => {
+    const searchCode = code || itemCode
+    if (!searchCode.trim()) {
       alert('商品コードを入力してください')
       return
     }
 
     try {
-      const response = await fetch(`${API_ENDPOINT}/items/${itemCode}`)
+      const response = await fetch(`${API_ENDPOINT}/items/${searchCode}`)
       if (!response.ok) {
         alert('商品が見つかりません')
         return
@@ -153,10 +154,7 @@ export default function POSApp() {
             {sampleItems.map(item => (
               <button
                 key={item.item_id}
-                onClick={() => {
-                  setItemCode(item.item_id)
-                  setTimeout(searchItem, 100)
-                }}
+                onClick={() => searchItem(item.item_id)}
                 style={{
                   padding: '10px 15px',
                   border: '1px solid #ddd',
