@@ -119,7 +119,7 @@ export default function POSApp() {
             }}
           />
           <button
-            onClick={searchItem}
+            onClick={() => searchItem()}
             style={{
               padding: '10px 20px',
               backgroundColor: '#0070f3',
