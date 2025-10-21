@@ -1,23 +1,12 @@
 "use client"
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 export default function POSApp() {
   const [itemCode, setItemCode] = useState('')
   const [cart, setCart] = useState([])
-  const [sampleItems, setSampleItems] = useState([])
 
   const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT || 'http://localhost:8000'
-
-  // サンプル商品コードを取得
-  useEffect(() => {
-    fetch(`${API_ENDPOINT}/items`)
-      .then(res => res.json())
-      .then(data => {
-        setSampleItems(data)  // 全商品を表示
-      })
-      .catch(err => console.error('商品取得エラー:', err))
-  }, [])
 
   // 商品検索
   const searchItem = async (code = null) => {
@@ -145,31 +134,6 @@ export default function POSApp() {
           </button>
         </div>
       </div>
-
-      {/* サンプル商品コード */}
-      {sampleItems.length > 0 && (
-        <div style={{ marginBottom: '2rem', padding: '20px', border: '1px solid #ddd', borderRadius: '8px', backgroundColor: '#f9f9f9' }}>
-          <h2 style={{ fontSize: '1.25rem', fontWeight: 'bold', marginBottom: '1rem' }}>サンプル商品コード</h2>
-          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-            {sampleItems.map(item => (
-              <button
-                key={item.item_id}
-                onClick={() => searchItem(item.item_id)}
-                style={{
-                  padding: '10px 15px',
-                  border: '1px solid #ddd',
-                  borderRadius: '4px',
-                  backgroundColor: 'white',
-                  cursor: 'pointer'
-                }}
-              >
-                {item.item_id}<br/>
-                <small style={{ color: '#666' }}>{item.item_name}</small>
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
 
       {/* 購入リスト */}
       <div style={{ marginBottom: '2rem', padding: '20px', border: '1px solid #ddd', borderRadius: '8px' }}>
